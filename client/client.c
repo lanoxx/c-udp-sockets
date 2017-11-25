@@ -1,5 +1,6 @@
 #include "client.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <netinet/in.h>
@@ -75,7 +76,7 @@ int client_main_loop (int serverSocketFd)
 
 
 static int receiveFromServer (int serverSocketFd,
-                              char **message,
+                              char **messageReference,
                               ssize_t *messageLength)
 {
   char receiveBuffer[UDP_BUFFER_SIZE];
@@ -114,8 +115,9 @@ static int receiveFromServer (int serverSocketFd,
       totalMessageSize = ntohl (sizeHeader);
 
       // allocate message
-      *message = malloc (totalMessageSize);
-      currentMessageHead = *message;
+      char *message = malloc (totalMessageSize);
+      *messageReference = message;
+      currentMessageHead = message;
     }
 
     // read message chunk

@@ -2,8 +2,6 @@
 #define SOCKETMUSTERPROGRAMM_CLIENT_H
 
 #include <stdint.h>
-#include <stdio.h>
-#include <sys/socket.h>
 
 #define UDP_BUFFER_SIZE 1400
 
